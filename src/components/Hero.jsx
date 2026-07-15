@@ -75,7 +75,7 @@ export default function Hero({ t, scrollToSection }) {
           {t.tCtaProyectos}
         </button>
         <a
-          href="https://github.com/swiftdeskk"
+          href="https://github.com/ariancerna"
           target="_blank"
           rel="noopener noreferrer"
           className="font-semibold text-sm text-white border border-white/20 px-8 py-4 rounded-full hover:border-cyan/60 hover:bg-cyan/6 transition"

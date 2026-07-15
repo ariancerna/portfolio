@@ -5,7 +5,7 @@ export default function About({ t }) {
     { number: '7º', label: t.tStatCiclo, color: 'from-purple to-cyan' },
     { number: '7', label: t.tStatRepos, color: 'from-cyan to-purple' },
     { number: '3', label: t.tStatApps, color: 'from-cyan to-purple' },
-    { number: '2', label: t.tStatStacks, color: 'from-purple to-cyan' },
+    { number: '3', label: t.tStatStacks, color: 'from-purple to-cyan' },
   ]
 
   return (

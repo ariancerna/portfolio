@@ -7,7 +7,7 @@ export default function Projects({ t }) {
       desc: t.tProy1Desc,
       icon: 'ST',
       gradient: 'from-purple to-cyan',
-      url: 'https://github.com/swiftdeskk/Tech-Store',
+      url: 'https://github.com/ariancerna/tech-store',
       tech: ['Java 21', 'Spring Boot', 'Spring Security', 'React 19', 'PostgreSQL', 'Docker'],
       borderColor: 'border-purple/35',
       hoverBorder: 'hover:border-purple/70',
@@ -20,7 +20,7 @@ export default function Projects({ t }) {
       desc: t.tProy2Desc,
       icon: 'YT',
       gradient: 'from-cyan to-cyan',
-      url: 'https://github.com/swiftdeskk/youtube-downloader',
+      url: 'https://github.com/ariancerna/youtube-downloader',
       tech: ['Electron', 'Node.js', 'yt-dlp', 'ffmpeg'],
       borderColor: 'border-cyan/30',
       hoverBorder: 'hover:border-cyan/70',
@@ -34,12 +34,54 @@ export default function Projects({ t }) {
       desc: t.tProy3Desc,
       icon: 'FV',
       gradient: 'from-purple to-purple',
-      url: 'https://github.com/swiftdeskk/jesucristo-fuente-de-vida',
+      url: 'https://github.com/ariancerna/jesucristo-fuente-de-vida',
       tech: ['HTML5', 'CSS3', 'JavaScript'],
       borderColor: 'border-white/12',
       hoverBorder: 'hover:border-purple/60',
       hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.15)]',
       pages: `web · 8 ${t.tPaginas}`,
+    },
+    {
+      id: 4,
+      featured: false,
+      name: 'Veterinaria Oyanguren',
+      desc: t.tProy4Desc,
+      icon: 'VO',
+      gradient: 'from-purple to-cyan',
+      url: 'https://github.com/ariancerna/veterinaria-oyanguren',
+      tech: ['Python', 'FastAPI', 'React 18', 'PostgreSQL', 'JWT', 'Docker'],
+      borderColor: 'border-purple/35',
+      hoverBorder: 'hover:border-purple/70',
+      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.2)]',
+      version: 'web · full-stack',
+    },
+    {
+      id: 5,
+      featured: false,
+      name: 'Cineclub Salamanca',
+      desc: t.tProy5Desc,
+      icon: 'CS',
+      gradient: 'from-cyan to-purple',
+      url: 'https://github.com/ariancerna/cineclub-salamanca-app',
+      tech: ['Java 21', 'Spring Boot', 'Spring Security', 'PostgreSQL', 'JWT', 'Docker'],
+      borderColor: 'border-cyan/30',
+      hoverBorder: 'hover:border-cyan/70',
+      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(34,211,238,0.15)]',
+      version: 'web · Java 21',
+    },
+    {
+      id: 6,
+      featured: false,
+      name: 'E-commerce Inventory',
+      desc: t.tProy6Desc,
+      icon: 'EC',
+      gradient: 'from-purple to-cyan',
+      url: 'https://github.com/ariancerna/ecommerce-inventory-system',
+      tech: ['Node.js', 'Express', 'MySQL', 'JWT', 'JavaScript'],
+      borderColor: 'border-white/12',
+      hoverBorder: 'hover:border-purple/60',
+      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.15)]',
+      version: 'web · ventas',
     },
   ]
 
@@ -113,7 +155,7 @@ export default function Projects({ t }) {
       </div>
 
       <a
-        href="https://github.com/swiftdeskk?tab=repositories"
+        href="https://github.com/ariancerna?tab=repositories"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center justify-center gap-2 mt-5 px-5 py-5 border border-dashed border-white/20 rounded-3xl font-bold text-sm text-white/60 hover:border-cyan/60 hover:text-cyan transition"
