@@ -4,19 +4,19 @@ export default function Skills({ t }) {
       title: 'BACKEND',
       color: 'text-purple',
       borderColor: 'border-purple/30',
-      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI', 'PostgreSQL · MySQL', 'API REST', 'Maven · Apache POI'],
+      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI', 'Node.js · Express', 'PostgreSQL · MySQL', 'API REST · JWT', 'Maven · Apache POI'],
     },
     {
       title: 'FRONTEND',
       color: 'text-cyan',
       borderColor: 'border-cyan/30',
-      skills: ['React 19 · Vite', 'React Router', 'JavaScript (ES6+)', 'HTML5 · CSS3', 'Bootstrap · Chart.js'],
+      skills: ['React 19 · Vite', 'React Router', 'JavaScript (ES6+)', 'HTML5 · CSS3', 'Tailwind CSS · Bootstrap', 'Chart.js · Font Awesome'],
     },
     {
       title: t.tHerramientas,
       color: 'text-white/60',
       borderColor: 'border-white/12',
-      skills: ['Docker', 'Git · GitHub', 'Node.js · Electron', 'Linux · Bash', t.tMetodologias],
+      skills: ['Docker', 'Git · GitHub', 'Electron', 'JUnit · Mockito', 'Linux · Bash', t.tMetodologias],
     },
   ]
 
