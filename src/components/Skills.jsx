@@ -4,7 +4,7 @@ export default function Skills({ t }) {
       title: 'BACKEND',
       color: 'text-purple',
       borderColor: 'border-purple/30',
-      skills: ['Java 21', 'Spring Boot · Security · JPA', 'PostgreSQL', 'API REST', 'Maven · Apache POI'],
+      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI', 'PostgreSQL · MySQL', 'API REST', 'Maven · Apache POI'],
     },
     {
       title: 'FRONTEND',
