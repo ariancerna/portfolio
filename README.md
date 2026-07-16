@@ -1,35 +1,35 @@
-# Portafolio - Arian Cerna
+# Portfolio - Arian Cerna
 
-Mi portafolio personal. Está hecho en React con Vite y Tailwind, en español e inglés.
+My personal portfolio. Built with React, Vite and Tailwind, in Spanish and English.
 
-Acá puedes ver mis proyectos, un poco sobre mí y cómo contactarme.
+Here you can see my projects, a bit about me, and how to contact me.
 
-## Correr el proyecto
+## Running the project
 
-Necesitas Node instalado. Después:
+You need Node installed. Then:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Se abre en `http://localhost:5173`.
+It opens at http://localhost:5173.
 
-Para generar la versión de producción:
+To generate the production build:
 
 ```bash
 npm run build
 ```
 
-Los archivos quedan en la carpeta `dist`.
+The files will be in the dist folder.
 
-## Cómo está armado
+## How it's structured
 
-- `src/components` — cada sección es su propio componente (Hero, About, Projects, Skills, Contact...).
-- `src/i18n/translations.js` — todos los textos en español e inglés. El idioma se guarda en localStorage.
-- `public` — favicon e imagen para compartir en redes (og-image).
-- Los colores y demás están en `tailwind.config.js`.
+- src/components — each section is its own component (Hero, About, Projects, Skills, Contact...).
+- src/i18n/translations.js — all the text in Spanish and English. The language is saved in localStorage.
+- public — favicon and image for social sharing (og-image).
+- Colors and other settings are in tailwind.config.js.
 
 ## Stack
 
-React 19, Vite, Tailwind CSS. Sin librerías de UI, todo el diseño está hecho a mano.
+React 19, Vite, Tailwind CSS. No UI libraries, everything is designed by hand.
