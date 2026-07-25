@@ -69,6 +69,17 @@ export default function Contact({ t }) {
               </a>
             ))}
           </div>
+
+          <a
+            href="/cv-arian-cerna.pdf"
+            download="CV-Arian-Cerna-Martinez.pdf"
+            className="inline-flex items-center gap-2.5 mt-8 font-semibold text-sm text-white bg-white/6 border border-white/12 px-6 py-3 rounded-full transition hover:bg-white/10 hover:border-white/25 hover:-translate-y-1"
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
+              <path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z" />
+            </svg>
+            {t.tDescargarCV}
+          </a>
         </div>
 
         <div className="lg:col-span-2 bg-white/3 backdrop-blur-2xl border border-white/10 rounded-3xl p-9">
