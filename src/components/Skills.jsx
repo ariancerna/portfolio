@@ -4,7 +4,7 @@ export default function Skills({ t }) {
       title: 'BACKEND',
       color: 'text-purple',
       borderColor: 'border-purple/30',
-      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI', 'Node.js · Express', 'PostgreSQL · MySQL', 'API REST · JWT', 'Maven · Apache POI'],
+      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI · Pydantic', 'SQLAlchemy · Alembic', 'Node.js · Express', 'PostgreSQL · MySQL', 'API REST · JWT', 'Maven · Apache POI'],
     },
     {
       title: 'FRONTEND',
@@ -16,7 +16,7 @@ export default function Skills({ t }) {
       title: t.tHerramientas,
       color: 'text-white/60',
       borderColor: 'border-white/12',
-      skills: ['Docker', 'Git · GitHub', 'Electron', 'JUnit · Mockito', 'Linux · Bash', t.tMetodologias],
+      skills: ['Docker · Docker Compose', 'Git · GitHub', 'Electron', 'JUnit 5 · Mockito', 'Linux · Bash', t.tMetodologias],
     },
   ]
 
@@ -38,6 +38,27 @@ export default function Skills({ t }) {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="mt-5 bg-white/3 border border-white/12 rounded-3xl p-8">
+        <div className="flex items-center justify-between gap-4 flex-wrap mb-5">
+          <div className="font-bold text-xs tracking-widest text-cyan">{t.tCertKicker}</div>
+          <div className="font-medium text-xs text-white/40">Cisco Networking Academy</div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {t.certificaciones.map((cert, i) => (
+            <div
+              key={i}
+              className={`flex items-start justify-between gap-4 bg-white/4 border border-white/10 rounded-2xl px-5 py-4 transition hover:border-cyan/45 hover:bg-white/6 ${
+                t.certificaciones.length % 2 === 1 && i === t.certificaciones.length - 1 ? 'sm:col-span-2' : ''
+              }`}
+            >
+              <span className="font-medium text-sm leading-snug text-white/80">{cert.name}</span>
+              <span className="font-mono text-xs text-white/40 shrink-0 pt-0.5">{cert.date}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   )

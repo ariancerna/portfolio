@@ -2,9 +2,9 @@ import Marquee from './Marquee'
 
 export default function About({ t }) {
   const stats = [
-    { number: '7º', label: t.tStatCiclo, color: 'from-purple to-cyan' },
-    { number: '7', label: t.tStatRepos, color: 'from-cyan to-purple' },
-    { number: '3', label: t.tStatApps, color: 'from-cyan to-purple' },
+    { number: '8º', label: t.tStatCiclo, color: 'from-purple to-cyan' },
+    { number: '8', label: t.tStatRepos, color: 'from-cyan to-purple' },
+    { number: '6', label: t.tStatApps, color: 'from-cyan to-purple' },
     { number: '3', label: t.tStatStacks, color: 'from-purple to-cyan' },
   ]
 
