@@ -1,5 +1,5 @@
 export default function Marquee() {
-  const skills = ['JAVA 21', 'SPRING BOOT', 'POSTGRESQL', 'REACT', 'VITE', 'DOCKER', 'ELECTRON', 'NODE.JS', 'GIT']
+  const skills = ['JAVA 21', 'SPRING BOOT', 'POSTGRESQL', 'REACT', 'NEXT.JS', 'TYPESCRIPT', 'PRISMA', 'VITE', 'DOCKER', 'ELECTRON', 'NODE.JS', 'GIT']
 
   return (
     <div className="border-t border-b border-white/7 py-5 overflow-hidden bg-white/2">

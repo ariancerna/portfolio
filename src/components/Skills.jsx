@@ -4,19 +4,19 @@ export default function Skills({ t }) {
       title: 'BACKEND',
       color: 'text-purple',
       borderColor: 'border-purple/30',
-      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI · Pydantic', 'SQLAlchemy · Alembic', 'Node.js · Express', 'PostgreSQL · MySQL', 'API REST · JWT', 'Maven · Apache POI'],
+      skills: ['Java 21', 'Spring Boot · Security · JPA', 'Python · FastAPI · Pydantic', 'SQLAlchemy · Alembic', 'Node.js · Express', 'Next.js · Prisma', 'PostgreSQL · MySQL', 'API REST · JWT · Auth.js', 'Maven · Apache POI'],
     },
     {
       title: 'FRONTEND',
       color: 'text-cyan',
       borderColor: 'border-cyan/30',
-      skills: ['React 19 · Vite', 'React Router', 'JavaScript (ES6+)', 'HTML5 · CSS3', 'Tailwind CSS · Bootstrap', 'Chart.js · Font Awesome'],
+      skills: ['React 19 · Vite', 'Next.js 15 · App Router', 'TypeScript · JavaScript (ES6+)', 'React Router', 'HTML5 · CSS3', 'Tailwind CSS · Bootstrap', 'Chart.js · Recharts', 'PWA · Service Workers'],
     },
     {
       title: t.tHerramientas,
       color: 'text-white/60',
       borderColor: 'border-white/12',
-      skills: ['Docker · Docker Compose', 'Git · GitHub', 'Electron', 'JUnit 5 · Mockito', 'Linux · Bash', t.tMetodologias],
+      skills: ['Docker · Docker Compose', 'nginx · Certbot (SSL)', 'Git · GitHub', 'Electron', 'JUnit 5 · Mockito', 'Vitest', 'Linux · Bash', t.tMetodologias],
     },
   ]
 
