@@ -3,6 +3,19 @@ export default function Projects({ t }) {
     {
       id: 1,
       featured: true,
+      name: 'Church Events',
+      desc: t.tProy8Desc,
+      icon: 'CE',
+      gradient: 'from-purple to-cyan',
+      url: 'https://github.com/ariancerna/church-events',
+      tech: ['Next.js 15', 'TypeScript', 'Prisma', 'PostgreSQL 16', 'Auth.js v5', 'Docker'],
+      borderColor: 'border-purple/35',
+      hoverBorder: 'hover:border-purple/70',
+      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.2)]',
+    },
+    {
+      id: 2,
+      featured: false,
       name: 'STG Inventory Control',
       desc: t.tProy1Desc,
       icon: 'ST',
@@ -12,9 +25,10 @@ export default function Projects({ t }) {
       borderColor: 'border-purple/35',
       hoverBorder: 'hover:border-purple/70',
       hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.2)]',
+      version: 'web · Spring Boot',
     },
     {
-      id: 2,
+      id: 3,
       featured: false,
       name: 'Veterinaria Oyanguren',
       desc: t.tProy4Desc,
@@ -28,7 +42,7 @@ export default function Projects({ t }) {
       version: 'web · full-stack',
     },
     {
-      id: 3,
+      id: 4,
       featured: false,
       name: 'Cineclub Salamanca',
       desc: t.tProy5Desc,
@@ -42,21 +56,21 @@ export default function Projects({ t }) {
       version: 'web · Java 21',
     },
     {
-      id: 4,
+      id: 5,
       featured: false,
-      name: 'E-commerce Inventory',
-      desc: t.tProy6Desc,
-      icon: 'EC',
-      gradient: 'from-purple to-cyan',
-      url: 'https://github.com/ariancerna/ecommerce-inventory-system',
-      tech: ['Node.js', 'Express', 'MySQL', 'JWT', 'JavaScript'],
-      borderColor: 'border-white/12',
-      hoverBorder: 'hover:border-purple/60',
-      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.15)]',
-      version: 'web · ventas',
+      name: 'Jesucristo Fuente de Vida',
+      desc: t.tProy3Desc,
+      icon: 'FV',
+      gradient: 'from-cyan to-purple',
+      url: 'https://github.com/ariancerna/jesucristo-fuente-de-vida',
+      tech: ['React 19', 'React Router 7', 'Vite 6', 'Tailwind 4', 'Vercel'],
+      borderColor: 'border-cyan/30',
+      hoverBorder: 'hover:border-cyan/70',
+      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(34,211,238,0.15)]',
+      version: `web · ${t.tEnProduccion}`,
     },
     {
-      id: 5,
+      id: 6,
       featured: false,
       name: 'Academic Management',
       desc: t.tProy7Desc,
@@ -70,7 +84,21 @@ export default function Projects({ t }) {
       version: 'desktop · JavaFX',
     },
     {
-      id: 6,
+      id: 7,
+      featured: false,
+      name: 'E-commerce Inventory',
+      desc: t.tProy6Desc,
+      icon: 'EC',
+      gradient: 'from-purple to-cyan',
+      url: 'https://github.com/ariancerna/ecommerce-inventory-system',
+      tech: ['Node.js', 'Express', 'MySQL', 'JWT', 'JavaScript'],
+      borderColor: 'border-white/12',
+      hoverBorder: 'hover:border-purple/60',
+      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.15)]',
+      version: 'web · ventas',
+    },
+    {
+      id: 8,
       featured: false,
       name: 'YT Downloader',
       desc: t.tProy2Desc,
@@ -78,24 +106,10 @@ export default function Projects({ t }) {
       gradient: 'from-cyan to-cyan',
       url: 'https://github.com/ariancerna/youtube-downloader',
       tech: ['Electron', 'Node.js', 'yt-dlp', 'ffmpeg'],
-      borderColor: 'border-cyan/30',
-      hoverBorder: 'hover:border-cyan/70',
+      borderColor: 'border-white/12',
+      hoverBorder: 'hover:border-cyan/60',
       hoverShadow: 'hover:shadow-[0_18px_60px_rgba(34,211,238,0.15)]',
       version: 'v1.0.0 · Windows',
-    },
-    {
-      id: 7,
-      featured: false,
-      name: 'Jesucristo Fuente de Vida',
-      desc: t.tProy3Desc,
-      icon: 'FV',
-      gradient: 'from-purple to-purple',
-      url: 'https://github.com/ariancerna/jesucristo-fuente-de-vida',
-      tech: ['HTML5', 'CSS3', 'JavaScript'],
-      borderColor: 'border-white/12',
-      hoverBorder: 'hover:border-purple/60',
-      hoverShadow: 'hover:shadow-[0_18px_60px_rgba(139,92,246,0.15)]',
-      pages: `web · 8 ${t.tPaginas}`,
     },
   ]
 
@@ -129,13 +143,31 @@ export default function Projects({ t }) {
             ))}
           </div>
         </div>
-        <div className="bg-gradient-to-br from-purple/14 to-cyan/6 flex items-center justify-center min-h-64 p-8 hidden lg:flex">
+        <div className="bg-gradient-to-br from-purple/14 to-cyan/6 items-center justify-center min-h-64 p-8 hidden lg:flex">
           <div className="w-full max-w-xs bg-dark-bg/75 border border-white/10 rounded-2xl p-5 font-mono text-sm">
-            <div className="text-white/40 border-b border-white/8 pb-2 mb-2 text-xs">dashboard · kardex</div>
-            <div className="flex justify-between text-white/70 mb-1"><span>▲ {t.tEntrada}</span><span className="text-cyan">+120 uds</span></div>
-            <div className="flex justify-between text-white/70 mb-1"><span>▼ {t.tSalida}</span><span className="text-purple">−45 uds</span></div>
-            <div className="flex justify-between text-white/70 mb-1"><span>⚠ {t.tStockBajo}</span><span className="text-yellow-500">SSD 480GB</span></div>
-            <div className="flex justify-between text-white/70"><span>✓ {t.tRoles}</span><span className="text-white/50">RBAC ×3</span></div>
+            <div className="flex items-center justify-between border-b border-white/8 pb-2.5 mb-4">
+              <span className="text-xs text-white/40">evento · check-in</span>
+              <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wide text-cyan">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan animate-pulse-dot"></span>
+                {t.tEnVivo}
+              </span>
+            </div>
+
+            <div className="flex items-baseline gap-1.5">
+              <span className="text-3xl font-semibold leading-none text-white">74</span>
+              <span className="text-base leading-none text-white/35">/ 128</span>
+            </div>
+            <div className="text-xs text-white/45 mt-1.5 mb-3">{t.tCheckinQr}</div>
+
+            <div className="h-1.5 rounded-full bg-white/10 overflow-hidden mb-4">
+              <div className="h-full w-[58%] rounded-full bg-gradient-to-r from-purple to-cyan"></div>
+            </div>
+
+            <div className="space-y-2 text-xs">
+              <div className="flex justify-between"><span className="text-white/45">{t.tRegistrados}</span><span className="text-white/75">128</span></div>
+              <div className="flex justify-between"><span className="text-white/45">{t.tPagos}</span><span className="text-cyan">92%</span></div>
+              <div className="flex justify-between"><span className="text-white/45">{t.tRoles}</span><span className="text-white/75">RBAC ×3</span></div>
+            </div>
           </div>
         </div>
       </a>
@@ -153,7 +185,7 @@ export default function Projects({ t }) {
               <span className={`w-11 h-11 rounded-2xl bg-gradient-to-br ${project.gradient} grid place-items-center font-black text-sm text-dark-bg`}>
                 {project.icon}
               </span>
-              <span className="font-bold text-xs text-white/40">{project.version || project.pages}</span>
+              <span className="font-bold text-xs text-white/40">{project.version}</span>
             </div>
             <h3 className="text-xl font-bold text-white mb-3">{project.name}</h3>
             <p className="text-sm font-light leading-relaxed text-white/55 mb-5">{project.desc}</p>
