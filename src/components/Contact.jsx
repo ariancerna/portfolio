@@ -25,7 +25,7 @@ export default function Contact({ t }) {
     window.open(whatsappLink(buildMessage()), '_blank', 'noopener,noreferrer')
   }
 
-  const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`${c.subject}${name ? ` — ${name}` : ''}`)}&body=${encodeURIComponent(buildMessage())}`
+  const mailHref = `mailto:${EMAIL}?subject=${encodeURIComponent(`${c.subject}${name ? `: ${name}` : ''}`)}&body=${encodeURIComponent(buildMessage())}`
 
   return (
     <section id="contacto" className="relative max-w-6xl mx-auto px-5 sm:px-8 py-24">
