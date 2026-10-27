@@ -58,7 +58,7 @@ export default function Hero({ t, scrollToSection }) {
 
       <div className="relative w-full max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-4 items-center">
         <div ref={sceneRef} className="relative order-first lg:order-last h-[250px] sm:h-[360px] lg:h-[580px] -mx-5 sm:mx-0 lg:-mr-16">
-          <Glow />
+          {!show3D && <Glow />}
           {show3D && (
             <Suspense fallback={null}>
               <div className="absolute inset-0 fade-in">
