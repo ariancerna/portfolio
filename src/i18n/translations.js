@@ -21,6 +21,8 @@ export const translations = {
       cv: 'Descargar CV',
       location: 'Lima, Perú. También trabajo remoto.',
       waMessage: 'Hola Arian, vi tu portafolio y quisiera consultarte por un proyecto.',
+      drag: 'Arrastra para girar · pasa sobre un logo',
+      dragTouch: 'Desliza para girar · toca un logo',
     },
 
 
@@ -235,6 +237,8 @@ export const translations = {
       cv: 'Download CV',
       location: 'Lima, Peru. Remote work too.',
       waMessage: 'Hi Arian, I saw your portfolio and I\'d like to ask you about a project.',
+      drag: 'Drag to spin · hover a logo',
+      dragTouch: 'Swipe to spin · tap a logo',
     },
 
 
