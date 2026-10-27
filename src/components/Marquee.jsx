@@ -1,21 +1,22 @@
-const skills = ['REACT', 'NEXT.JS', 'TYPESCRIPT', 'JAVA 21', 'SPRING BOOT', 'PYTHON', 'FASTAPI', 'NODE.JS', 'POSTGRESQL', 'SUPABASE', 'DOCKER', 'THREE.JS']
+import { marqueeTech } from '../data/tech'
+import TechIcon from './TechIcon'
 
 function Row({ hidden }) {
   return (
-    <div className="flex gap-12 px-6 font-bold text-sm text-white/40 whitespace-nowrap" aria-hidden={hidden || undefined}>
-      {skills.map((skill, i) => (
-        <div key={skill} className="flex items-center gap-12">
-          <span>{skill}</span>
-          <span className={i % 2 === 0 ? 'text-purple' : 'text-cyan'}>✦</span>
-        </div>
+    <ul className="flex items-center gap-12 sm:gap-16 px-6 sm:px-8 m-0 list-none" aria-hidden={hidden || undefined}>
+      {marqueeTech.map((tech) => (
+        <li key={tech.name} className="flex items-center gap-3 shrink-0 text-white/85">
+          <TechIcon icon={tech.icon} className="w-7 h-7" />
+          <span className="font-semibold text-sm text-white/55 whitespace-nowrap">{tech.name}</span>
+        </li>
       ))}
-    </div>
+    </ul>
   )
 }
 
 export default function Marquee() {
   return (
-    <div className="border-y border-white/7 py-5 overflow-hidden bg-white/[0.02] mt-16">
+    <div className="marquee-mask border-y border-white/7 py-6 overflow-hidden bg-white/[0.02] mt-16">
       <div className="flex w-max animate-marquee">
         <Row />
         <Row hidden />

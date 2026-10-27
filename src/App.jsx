@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import Stats from './components/Stats'
 import Services from './components/Services'
 import Projects from './components/Projects'
 import Process from './components/Process'
@@ -55,7 +54,6 @@ function App() {
       <Navigation t={t} lang={lang} setLang={setLang} scrollToSection={scrollToSection} />
       <main>
         <Hero t={t} scrollToSection={scrollToSection} />
-        <Stats t={t} />
         <Services t={t} scrollToSection={scrollToSection} />
         <Projects t={t} />
         <Process t={t} />

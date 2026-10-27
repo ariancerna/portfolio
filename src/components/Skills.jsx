@@ -1,38 +1,31 @@
+import { stackGroups } from '../data/tech'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
+import TechIcon from './TechIcon'
 
 export default function Skills({ t }) {
   const s = t.skills
-  const skillSets = [
-    {
-      title: 'FRONTEND',
-      color: 'text-cyan',
-      skills: ['React 19 · Vite', 'Next.js · App Router', 'TypeScript · JavaScript', 'Tailwind CSS', 'TanStack Query · React Router', 'React Hook Form · Zod', 'Three.js · React Three Fiber', 'PWA'],
-    },
-    {
-      title: 'BACKEND',
-      color: 'text-purple-300',
-      skills: ['Java 21 · Spring Boot · Security', 'Python · FastAPI · SQLAlchemy', 'Node.js · Express', 'Prisma · Supabase', 'PostgreSQL · MySQL', 'API REST · JWT · Auth.js', 'OpenAPI · Swagger'],
-    },
-    {
-      title: s.tools,
-      color: 'text-white/60',
-      skills: ['Docker · Docker Compose', 'nginx · SSL', 'Vercel · Railway', 'Git · GitHub', 'JUnit 5 · Mockito', 'Vitest · Playwright', 'Electron', s.methods],
-    },
-  ]
+  const titles = { frontend: 'FRONTEND', backend: 'BACKEND', tools: s.tools }
+  const colors = { frontend: 'text-cyan', backend: 'text-purple-300', tools: 'text-white/60' }
 
   return (
     <section id="habilidades" className="relative max-w-6xl mx-auto px-5 sm:px-8 py-24">
       <SectionHeading kicker={s.kicker} title={s.title} />
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-5">
-        {skillSets.map((set, i) => (
-          <Reveal key={set.title} delay={i * 90}>
-            <div className="h-full bg-white/[0.03] border border-white/10 rounded-3xl p-7">
-              <div className={`font-bold text-xs tracking-[0.2em] mb-5 ${set.color}`}>{set.title}</div>
-              <ul className="space-y-3 list-none p-0 m-0">
-                {set.skills.map((skill) => (
-                  <li key={skill} className="font-medium text-[15px] text-white/80">{skill}</li>
+      <div className="space-y-4 sm:space-y-5">
+        {stackGroups.map((group, i) => (
+          <Reveal key={group.id} delay={i * 90}>
+            <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-6 sm:p-7">
+              <div className={`font-bold text-xs tracking-[0.2em] mb-5 ${colors[group.id]}`}>{titles[group.id]}</div>
+              <ul className="flex flex-wrap gap-2.5 list-none p-0 m-0">
+                {group.items.map((tech) => (
+                  <li
+                    key={tech.name}
+                    className="flex items-center gap-2.5 bg-white/[0.04] border border-white/10 rounded-xl pl-3 pr-4 py-2.5 text-white/90 hover:border-white/25 hover:bg-white/[0.07] transition"
+                  >
+                    <TechIcon icon={tech.icon} className="w-5 h-5 shrink-0" />
+                    <span className="text-sm font-medium text-white/80">{tech.name}</span>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -41,7 +34,7 @@ export default function Skills({ t }) {
       </div>
 
       <Reveal className="mt-5">
-        <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-7">
+        <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-6 sm:p-7">
           <div className="flex items-center justify-between gap-4 flex-wrap mb-5">
             <div className="font-bold text-xs tracking-[0.2em] text-cyan">{s.certKicker}</div>
             <div className="font-medium text-xs text-white/40">Cisco Networking Academy</div>
