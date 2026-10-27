@@ -1,101 +1,123 @@
-import { useState, useEffect } from 'react'
+import { Suspense, lazy, useEffect, useRef, useState } from 'react'
+import { CV_FILENAME, CV_URL, whatsappLink } from '../lib/contact'
+import { ArrowIcon, DownloadIcon, PinIcon, WhatsAppIcon } from './Icons'
+
+const Scene3D = lazy(() => import('./Scene3D'))
+
+function hasWebGL() {
+  try {
+    const c = document.createElement('canvas')
+    return !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')))
+  } catch {
+    return false
+  }
+}
+
+// Soft glow shown while the 3D scene loads, or instead of it when WebGL is off.
+function Glow() {
+  return (
+    <div className="absolute inset-0 grid place-items-center pointer-events-none" aria-hidden="true">
+      <div className="w-[62%] aspect-square rounded-full blur-[30px] bg-[radial-gradient(circle_at_35%_35%,rgba(34,211,238,.55),rgba(139,92,246,.55)_45%,transparent_70%)] animate-orb-a"></div>
+    </div>
+  )
+}
 
 export default function Hero({ t, scrollToSection }) {
-  const [typed, setTyped] = useState('')
-  const [typeState, setTypeState] = useState({ i: 0, pos: 0, del: false })
+  const sceneRef = useRef(null)
+  const [show3D, setShow3D] = useState(false)
+  const [active, setActive] = useState(true)
+  const [reduced, setReduced] = useState(false)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTypeState(prev => {
-        const s = { ...prev }
-        const word = t.roles[s.i % t.roles.length]
-        if (!s.del) {
-          s.pos++
-          if (s.pos >= word.length + 14) s.del = true
-        } else {
-          s.pos--
-          if (s.pos <= 0) {
-            s.del = false
-            s.i++
-          }
-        }
-        const displayText = word.slice(0, Math.min(s.pos, word.length))
-        setTyped(displayText)
-        return s
-      })
-    }, 55)
+    setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    setShow3D(hasWebGL())
+  }, [])
 
-    return () => clearInterval(interval)
-  }, [t.roles])
+  // Pause rendering when the hero is off screen to save battery.
+  useEffect(() => {
+    const el = sceneRef.current
+    if (!el || !('IntersectionObserver' in window)) return
+    const io = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting))
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   return (
-    <div id="inicio" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 overflow-hidden">
+    <header id="inicio" className="relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-16 lg:pt-28">
+      <div className="absolute inset-0 hero-grid pointer-events-none" aria-hidden="true"></div>
       <div
-        className="absolute -top-36 -left-24 w-[560px] h-[560px] rounded-full blur-[50px] animate-orb-a pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(139,92,246,.35), transparent 65%)' }}
+        className="absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full blur-[60px] animate-orb-a pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(139,92,246,.28), transparent 65%)' }}
+        aria-hidden="true"
       ></div>
       <div
-        className="absolute top-[20%] -right-36 w-[500px] h-[500px] rounded-full blur-[50px] animate-orb-b pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(34,211,238,.22), transparent 65%)' }}
-      ></div>
-      <div
-        className="absolute -bottom-40 left-[35%] w-[440px] h-[440px] rounded-full blur-[50px] animate-orb-c pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(139,92,246,.18), transparent 65%)' }}
+        className="absolute bottom-0 -right-40 w-[520px] h-[520px] rounded-full blur-[60px] animate-orb-b pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(34,211,238,.16), transparent 65%)' }}
+        aria-hidden="true"
       ></div>
 
-      <div className="relative w-32 h-32 mb-9">
-        <div className="absolute inset-[-13px] border border-dashed border-purple/55 rounded-full animate-spin-slow"></div>
-        <img
-          src="https://avatars.githubusercontent.com/u/155792867?v=4"
-          alt="Arian Cerna"
-          className="w-32 h-32 rounded-full object-cover border-2 border-cyan/50 shadow-[0_0_60px_rgba(139,92,246,0.35)]"
-        />
+      <div className="relative w-full max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-4 items-center">
+        <div ref={sceneRef} className="relative order-first lg:order-last h-[250px] sm:h-[360px] lg:h-[580px] -mx-5 sm:mx-0 lg:-mr-16">
+          <Glow />
+          {show3D && (
+            <Suspense fallback={null}>
+              <div className="absolute inset-0 fade-in">
+                <Scene3D active={active} reduced={reduced} />
+              </div>
+            </Suspense>
+          )}
+        </div>
+
+        <div className="relative text-center lg:text-left">
+          <div className="inline-flex items-center gap-2 font-semibold text-xs text-emerald-300 bg-emerald-400/10 border border-emerald-400/25 rounded-full px-4 py-2 mb-6">
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-70"></span>
+              <span className="relative w-2 h-2 rounded-full bg-emerald-400"></span>
+            </span>
+            {t.hero.badge}
+          </div>
+
+          <p className="font-mono text-xs sm:text-sm text-white/55 mb-4">{t.hero.hello}</p>
+
+          <h1 className="m-0 font-black text-[2.4rem] leading-[1.08] sm:text-6xl lg:text-[4.1rem] tracking-tight text-white text-balance">
+            {t.hero.title1}{' '}
+            <span className="bg-gradient-to-r from-purple via-fuchsia-400 to-cyan bg-clip-text text-transparent">{t.hero.title2}</span>
+          </h1>
+
+          <p className="mt-6 font-light text-base sm:text-lg leading-relaxed text-white/60 max-w-xl mx-auto lg:mx-0">{t.hero.desc}</p>
+
+          <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mt-9">
+            <a
+              href={whatsappLink(t.hero.waMessage)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center justify-center gap-2.5 font-semibold text-sm text-dark-bg bg-gradient-to-r from-purple to-cyan px-7 py-4 rounded-full shadow-[0_10px_40px_rgba(139,92,246,0.35)] hover:shadow-[0_14px_50px_rgba(139,92,246,0.55)] hover:-translate-y-0.5 transition"
+            >
+              <WhatsAppIcon className="w-5 h-5" />
+              {t.hero.ctaWhatsapp}
+            </a>
+            <button
+              type="button"
+              onClick={() => scrollToSection('proyectos')}
+              className="group inline-flex items-center justify-center gap-2 font-semibold text-sm text-white bg-white/6 border border-white/12 px-7 py-4 rounded-full transition hover:bg-white/10 hover:border-white/25 hover:-translate-y-0.5"
+            >
+              {t.hero.ctaProjects}
+              <ArrowIcon className="w-4 h-4 transition group-hover:translate-x-0.5" />
+            </button>
+          </div>
+
+          <div className="mt-7 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-white/50">
+            <a href={CV_URL} download={CV_FILENAME} className="inline-flex items-center gap-2 font-medium text-white/70 hover:text-cyan transition">
+              <DownloadIcon className="w-4 h-4" />
+              {t.hero.cv}
+            </a>
+            <span className="inline-flex items-center gap-2">
+              <PinIcon className="w-4 h-4" />
+              {t.hero.location}
+            </span>
+          </div>
+        </div>
       </div>
-
-      <div className="inline-flex items-center gap-2 font-semibold text-xs text-cyan bg-cyan/8 border border-cyan/25 rounded-full px-5 py-2 mb-7">
-        <span className="w-2 h-2 rounded-full bg-cyan animate-pulse-dot"></span>
-        {t.tBadge}
-      </div>
-
-      <h1 className="m-0 font-black text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight text-white">
-        {t.tHeroHola} <span className="bg-gradient-to-r from-purple to-cyan bg-clip-text text-transparent">Arian</span>
-      </h1>
-
-      <div className="mt-6 font-mono text-lg sm:text-2xl text-white/75 min-h-8">
-        {typed}<span className="text-cyan animate-blink">▌</span>
-      </div>
-
-      <p className="mt-6 font-light text-lg text-white/55 max-w-2xl">{t.tHeroDesc}</p>
-
-      <div className="flex gap-4 justify-center mt-10 flex-wrap">
-        <button
-          onClick={() => scrollToSection('proyectos')}
-          className="font-semibold text-sm text-dark-bg bg-gradient-to-r from-purple to-cyan px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition"
-        >
-          {t.tCtaProyectos}
-        </button>
-        <a
-          href="/cv-arian-cerna.pdf"
-          download="CV-Arian-Cerna-Martinez.pdf"
-          className="inline-flex items-center gap-2.5 font-semibold text-sm text-white bg-white/6 border border-white/12 px-8 py-4 rounded-full transition hover:bg-white/10 hover:border-white/25 hover:-translate-y-1"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
-            <path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42l3.3 3.3V4a1 1 0 0 1 1-1zM5 19a1 1 0 0 1 1-1h12a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1z" />
-          </svg>
-          {t.tDescargarCV}
-        </a>
-        <a
-          href="https://github.com/ariancerna"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 font-semibold text-sm text-white bg-white/6 border border-white/12 px-8 py-4 rounded-full transition hover:bg-white/10 hover:border-white/25 hover:-translate-y-1"
-        >
-          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor" aria-hidden="true">
-            <path d="M12 .5C5.37.5 0 5.87 0 12.5c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58 0-.29-.01-1.04-.02-2.04-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.75.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.31.47-2.39 1.24-3.23-.12-.3-.54-1.53.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.05.14 3 .4 2.29-1.55 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.77.84 1.24 1.92 1.24 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22 0 1.6-.01 2.89-.01 3.28 0 .32.22.7.83.58A12.01 12.01 0 0 0 24 12.5C24 5.87 18.63.5 12 .5z" />
-          </svg>
-          GitHub
-        </a>
-      </div>
-    </div>
+    </header>
   )
 }
