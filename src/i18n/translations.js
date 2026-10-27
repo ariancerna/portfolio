@@ -22,12 +22,6 @@ export const translations = {
       waMessage: 'Hola Arian, vi tu portafolio y quisiera consultarte por un proyecto.',
     },
 
-    stats: [
-      { number: '11', label: 'proyectos terminados' },
-      { number: '4', label: 'webs que puedes abrir ahora mismo' },
-      { number: '80', label: 'pruebas automáticas en el proyecto del cineclub' },
-      { number: '5', label: 'certificados de Cisco en redes y seguridad' },
-    ],
 
     services: {
       kicker: 'SERVICIOS',
@@ -152,7 +146,6 @@ export const translations = {
       kicker: 'STACK',
       title: 'Con qué trabajo',
       tools: 'HERRAMIENTAS',
-      methods: 'Scrum · trabajo en equipo',
       certKicker: 'CERTIFICACIONES',
       certs: [
         { name: 'Gestión de Amenazas Cibernéticas', date: 'jul. 2026' },
@@ -208,12 +201,6 @@ export const translations = {
       waMessage: 'Hi Arian, I saw your portfolio and I\'d like to ask you about a project.',
     },
 
-    stats: [
-      { number: '11', label: 'finished projects' },
-      { number: '4', label: 'websites you can open right now' },
-      { number: '80', label: 'automated tests in the film club project' },
-      { number: '5', label: 'Cisco certificates in networking and security' },
-    ],
 
     services: {
       kicker: 'SERVICES',
@@ -338,7 +325,6 @@ export const translations = {
       kicker: 'STACK',
       title: 'What I work with',
       tools: 'TOOLS',
-      methods: 'Scrum · teamwork',
       certKicker: 'CERTIFICATIONS',
       certs: [
         { name: 'Cyber Threat Management', date: 'Jul 2026' },

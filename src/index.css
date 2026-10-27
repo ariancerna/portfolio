@@ -177,3 +177,9 @@ textarea:focus {
     animation: none;
   }
 }
+
+/* Fade the logo strip at both edges */
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
