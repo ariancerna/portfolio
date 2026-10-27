@@ -1,6 +1,7 @@
 import { Suspense, lazy, useCallback, useEffect, useRef, useState } from 'react'
 import { CV_FILENAME, CV_URL, trackCV, trackWhatsApp, whatsappLink } from '../lib/contact'
 import { ArrowIcon, DownloadIcon, PinIcon, WhatsAppIcon } from './Icons'
+import PhoneShowcase from './PhoneShowcase'
 
 const Scene3D = lazy(() => import('./Scene3D'))
 
@@ -22,8 +23,12 @@ function Glow() {
   )
 }
 
+const DESKTOP_QUERY = '(min-width: 1024px)'
+
 export default function Hero({ t, scrollToSection }) {
   const sceneRef = useRef(null)
+  // Phones and tablets get a light phone mockup; the 3D scene is only loaded on desktop.
+  const [isDesktop, setIsDesktop] = useState(() => window.matchMedia(DESKTOP_QUERY).matches)
   const [show3D, setShow3D] = useState(false)
   const [active, setActive] = useState(true)
   const [reduced, setReduced] = useState(false)
@@ -35,6 +40,10 @@ export default function Hero({ t, scrollToSection }) {
     setReduced(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
     setShow3D(hasWebGL())
     setCoarse(window.matchMedia('(pointer: coarse)').matches)
+    const mq = window.matchMedia(DESKTOP_QUERY)
+    const onChange = () => setIsDesktop(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
   }, [])
 
   // Pause rendering when the hero is off screen to save battery.
@@ -44,7 +53,7 @@ export default function Hero({ t, scrollToSection }) {
     const io = new IntersectionObserver(([entry]) => setActive(entry.isIntersecting))
     io.observe(el)
     return () => io.disconnect()
-  }, [])
+  }, [isDesktop])
 
   return (
     <header id="inicio" className="relative min-h-[100svh] flex items-center overflow-hidden pt-20 pb-16 lg:pt-28">
@@ -61,27 +70,33 @@ export default function Hero({ t, scrollToSection }) {
       ></div>
 
       <div className="relative w-full max-w-6xl mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-6 lg:gap-4 items-center">
-        <div ref={sceneRef} className="relative order-first lg:order-last h-[290px] sm:h-[380px] lg:h-[580px] -mx-5 sm:mx-0 lg:-mr-16">
-          {!show3D && <Glow />}
-          {show3D && (
-            <Suspense fallback={null}>
-              <div className="absolute inset-0 fade-in">
-                <Scene3D active={active} reduced={reduced} onInteract={onInteract} />
-              </div>
-              <div
-                className={`absolute left-1/2 -translate-x-1/2 bottom-1 lg:bottom-10 pointer-events-none inline-flex items-center gap-2 whitespace-nowrap text-[11px] font-semibold text-white/55 bg-white/[0.05] border border-white/10 rounded-full px-3 py-1.5 backdrop-blur transition-opacity duration-500 ${
-                  touched ? 'opacity-0' : 'opacity-100'
-                }`}
-                aria-hidden="true"
-              >
-                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8 7 4 12l4 5M16 7l4 5-4 5M4 12h16" />
-                </svg>
-                {coarse ? t.hero.dragTouch : t.hero.drag}
-              </div>
-            </Suspense>
-          )}
-        </div>
+        {isDesktop ? (
+          <div ref={sceneRef} className="relative order-last h-[580px] -mr-16">
+            {!show3D && <Glow />}
+            {show3D && (
+              <Suspense fallback={null}>
+                <div className="absolute inset-0 fade-in">
+                  <Scene3D active={active} reduced={reduced} onInteract={onInteract} />
+                </div>
+                <div
+                  className={`absolute left-1/2 -translate-x-1/2 bottom-1 lg:bottom-10 pointer-events-none inline-flex items-center gap-2 whitespace-nowrap text-[11px] font-semibold text-white/55 bg-white/[0.05] border border-white/10 rounded-full px-3 py-1.5 backdrop-blur transition-opacity duration-500 ${
+                    touched ? 'opacity-0' : 'opacity-100'
+                  }`}
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 24 24" className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M8 7 4 12l4 5M16 7l4 5-4 5M4 12h16" />
+                  </svg>
+                  {coarse ? t.hero.dragTouch : t.hero.drag}
+                </div>
+              </Suspense>
+            )}
+          </div>
+        ) : (
+          <div className="order-last mt-8">
+            <PhoneShowcase t={t} scrollToSection={scrollToSection} />
+          </div>
+        )}
 
         <div className="relative text-center lg:text-left">
           <div className="inline-flex items-center gap-2 font-semibold text-xs text-emerald-300 bg-emerald-400/10 border border-emerald-400/25 rounded-full px-4 py-2 mb-6">
