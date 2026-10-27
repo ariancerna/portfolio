@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { whatsappLink } from '../lib/contact'
+import { trackWhatsApp, whatsappLink } from '../lib/contact'
 import { WhatsAppIcon } from './Icons'
 
 export default function Navigation({ t, lang, setLang, scrollToSection }) {
@@ -16,6 +16,7 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
   const navItems = [
     { id: 'servicios', label: t.nav.servicios },
     { id: 'proyectos', label: t.nav.proyectos },
+    { id: 'precios', label: t.nav.precios },
     { id: 'sobre', label: t.nav.sobre },
     { id: 'habilidades', label: t.nav.habilidades },
     { id: 'contacto', label: t.nav.contacto },
@@ -71,6 +72,7 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
 
         <a
           href={whatsappLink(t.hero.waMessage)}
+          onClick={trackWhatsApp('nav')}
           target="_blank"
           rel="noopener noreferrer"
           className="hidden sm:inline-flex items-center gap-2 font-semibold text-xs text-dark-bg bg-gradient-to-r from-purple to-cyan px-4 py-2.5 rounded-full hover:shadow-[0_8px_30px_rgba(139,92,246,0.45)] transition"
@@ -106,6 +108,7 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
           ))}
           <a
             href={whatsappLink(t.hero.waMessage)}
+            onClick={trackWhatsApp('menu-movil')}
             target="_blank"
             rel="noopener noreferrer"
             className="mx-5 mt-2 mb-2 inline-flex items-center justify-center gap-2 font-semibold text-sm text-dark-bg bg-gradient-to-r from-purple to-cyan px-4 py-3 rounded-full"

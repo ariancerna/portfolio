@@ -1,4 +1,4 @@
-import { whatsappLink } from '../lib/contact'
+import { trackWhatsApp, whatsappLink } from '../lib/contact'
 import { ArrowIcon, BagIcon, CalendarIcon, DashboardIcon, GlobeIcon } from './Icons'
 import Reveal from './Reveal'
 import SectionHeading from './SectionHeading'
@@ -43,6 +43,7 @@ export default function Services({ t, scrollToSection }) {
           <p className="text-sm text-white/65">{s.other}</p>
           <a
             href={whatsappLink(t.hero.waMessage)}
+            onClick={trackWhatsApp('servicios')}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 inline-flex items-center gap-2 font-semibold text-sm text-cyan hover:text-white transition"

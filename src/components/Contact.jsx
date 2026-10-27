@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CV_FILENAME, CV_URL, EMAIL, GITHUB_URL, WHATSAPP_DISPLAY, whatsappLink } from '../lib/contact'
+import { CV_FILENAME, CV_URL, EMAIL, GITHUB_URL, WHATSAPP_DISPLAY, trackCV, trackWhatsApp, whatsappLink } from '../lib/contact'
 import { DownloadIcon, GitHubIcon, MailIcon, WhatsAppIcon } from './Icons'
 import Reveal from './Reveal'
 
@@ -22,6 +22,7 @@ export default function Contact({ t }) {
 
   const sendWhatsapp = (e) => {
     e.preventDefault()
+    trackWhatsApp('formulario')()
     window.open(whatsappLink(buildMessage()), '_blank', 'noopener,noreferrer')
   }
 
@@ -43,6 +44,7 @@ export default function Contact({ t }) {
 
           <a
             href={whatsappLink(t.hero.waMessage)}
+            onClick={trackWhatsApp('contacto')}
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-4 bg-[#25d366]/10 border border-[#25d366]/35 rounded-3xl p-5 hover:bg-[#25d366]/15 hover:border-[#25d366]/60 transition mb-6"
@@ -74,6 +76,7 @@ export default function Contact({ t }) {
           <a
             href={CV_URL}
             download={CV_FILENAME}
+            onClick={trackCV('contacto')}
             className="inline-flex items-center gap-2.5 mt-8 font-semibold text-sm text-white bg-white/6 border border-white/12 px-6 py-3 rounded-full transition hover:bg-white/10 hover:border-white/25 hover:-translate-y-0.5"
           >
             <DownloadIcon className="w-4 h-4" />

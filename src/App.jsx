@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import Services from './components/Services'
 import Projects from './components/Projects'
 import Process from './components/Process'
+import Pricing from './components/Pricing'
 import About from './components/About'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
@@ -57,6 +58,7 @@ function App() {
         <Services t={t} scrollToSection={scrollToSection} />
         <Projects t={t} />
         <Process t={t} />
+        <Pricing t={t} />
         <About t={t} />
         <Skills t={t} />
         <Contact t={t} />
