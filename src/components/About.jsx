@@ -1,4 +1,4 @@
-import { CV_FILENAME, CV_URL } from '../lib/contact'
+import { CV_FILENAME, CV_URL, trackCV } from '../lib/contact'
 import { CheckIcon, DownloadIcon } from './Icons'
 import Marquee from './Marquee'
 import Reveal from './Reveal'
@@ -49,6 +49,7 @@ export default function About({ t }) {
                 <a
                   href={CV_URL}
                   download={CV_FILENAME}
+                  onClick={trackCV('sobre-mi')}
                   className="inline-flex items-center gap-2.5 font-semibold text-sm text-dark-bg bg-white px-6 py-3 rounded-full hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition"
                 >
                   <DownloadIcon className="w-4 h-4" />

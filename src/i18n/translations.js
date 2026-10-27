@@ -3,6 +3,7 @@ export const translations = {
     nav: {
       servicios: 'Servicios',
       proyectos: 'Proyectos',
+      precios: 'Precios',
       sobre: 'Sobre mí',
       habilidades: 'Stack',
       contacto: 'Contacto',
@@ -126,6 +127,40 @@ export const translations = {
       ],
     },
 
+    pricing: {
+      kicker: 'PRECIOS',
+      title: '¿Cuánto cuesta?',
+      desc: 'Son precios de referencia para que tengas una idea. El monto final depende de lo que necesites y te lo paso por escrito antes de empezar.',
+      from: 'desde',
+      currencyNote: '',
+      plans: [
+        {
+          name: 'Página web',
+          price: '690',
+          for: 'Para que tu negocio aparezca en Google y la gente te escriba.',
+          features: ['Hasta 5 secciones', 'Diseño pensado para celular', 'Botón de WhatsApp y mapa de ubicación', 'Configuración básica para Google', 'Dominio .com por el primer año', 'Lista en 1 a 2 semanas'],
+          cta: 'Quiero mi web',
+        },
+        {
+          name: 'Tienda o catálogo',
+          price: '1,290',
+          tag: 'Para vender online',
+          for: 'Para mostrar tus productos y recibir pedidos sin pagar comisiones.',
+          features: ['Todo lo de la página web', 'Catálogo con fotos, precios y filtros', 'Carrito con pedido directo a tu WhatsApp', 'Hasta 30 productos cargados', 'Estadísticas de visitas', 'Lista en 2 a 3 semanas'],
+          cta: 'Quiero mi tienda',
+        },
+        {
+          name: 'Sistema a medida',
+          price: '2,490',
+          for: 'Reservas, inventario, ventas o lo que tu negocio necesite controlar.',
+          features: ['Usuarios con distintos permisos', 'Panel de administración', 'Reportes que descargas en Excel', 'Datos guardados de forma segura', 'Te enseño a usarlo a ti y a tu equipo', 'Tiempo según lo que necesites'],
+          cta: 'Cuéntame tu caso',
+        },
+      ],
+      waPlan: 'Hola Arian, me interesa el plan',
+      note: 'El pago es en dos partes: 50 % para empezar y 50 % al entregar. Si tu proyecto necesita servidor, te digo cuánto cuesta al mes antes de empezar.',
+    },
+
     about: {
       kicker: 'SOBRE MÍ',
       title: 'Estudiante de sistemas, con proyectos de verdad',
@@ -182,6 +217,7 @@ export const translations = {
     nav: {
       servicios: 'Services',
       proyectos: 'Projects',
+      precios: 'Pricing',
       sobre: 'About',
       habilidades: 'Stack',
       contacto: 'Contact',
@@ -303,6 +339,40 @@ export const translations = {
         { title: 'You watch it come together', desc: 'I share a link where you can see how it\'s going. If something doesn\'t feel right, we change it along the way.' },
         { title: 'We launch it', desc: 'I put your site online with its domain and show you how to use it. If you need a tweak later, just message me.' },
       ],
+    },
+
+    pricing: {
+      kicker: 'PRICING',
+      title: 'How much does it cost?',
+      desc: 'These are starting prices so you get an idea. The final amount depends on what you need, and you get it in writing before we start.',
+      from: 'from',
+      currencyNote: 'Prices in Peruvian soles (PEN).',
+      plans: [
+        {
+          name: 'Website',
+          price: '690',
+          for: 'So your business shows up on Google and people get in touch.',
+          features: ['Up to 5 sections', 'Designed for phones first', 'WhatsApp button and location map', 'Basic Google setup', '.com domain for the first year', 'Ready in 1 to 2 weeks'],
+          cta: 'I want a website',
+        },
+        {
+          name: 'Store or catalog',
+          price: '1,290',
+          tag: 'To sell online',
+          for: 'To show your products and take orders without paying commissions.',
+          features: ['Everything in the website plan', 'Catalog with photos, prices and filters', 'Cart that sends the order to your WhatsApp', 'Up to 30 products loaded', 'Visitor statistics', 'Ready in 2 to 3 weeks'],
+          cta: 'I want a store',
+        },
+        {
+          name: 'Custom system',
+          price: '2,490',
+          for: 'Bookings, inventory, sales or whatever your business needs to keep track of.',
+          features: ['Users with different permissions', 'Admin dashboard', 'Reports you can download in Excel', 'Data stored securely', 'I teach you and your team how to use it', 'Timeline based on what you need'],
+          cta: 'Tell me about it',
+        },
+      ],
+      waPlan: 'Hi Arian, I\'m interested in the plan',
+      note: 'Payment comes in two parts: 50% to start and 50% on delivery. If your project needs a server, I\'ll tell you the monthly cost before we start.',
     },
 
     about: {

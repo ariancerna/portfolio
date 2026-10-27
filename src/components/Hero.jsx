@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useRef, useState } from 'react'
-import { CV_FILENAME, CV_URL, whatsappLink } from '../lib/contact'
+import { CV_FILENAME, CV_URL, trackCV, trackWhatsApp, whatsappLink } from '../lib/contact'
 import { ArrowIcon, DownloadIcon, PinIcon, WhatsAppIcon } from './Icons'
 
 const Scene3D = lazy(() => import('./Scene3D'))
@@ -89,6 +89,7 @@ export default function Hero({ t, scrollToSection }) {
           <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mt-9">
             <a
               href={whatsappLink(t.hero.waMessage)}
+              onClick={trackWhatsApp('inicio')}
               target="_blank"
               rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2.5 font-semibold text-sm text-dark-bg bg-gradient-to-r from-purple to-cyan px-7 py-4 rounded-full shadow-[0_10px_40px_rgba(139,92,246,0.35)] hover:shadow-[0_14px_50px_rgba(139,92,246,0.55)] hover:-translate-y-0.5 transition"
@@ -107,7 +108,7 @@ export default function Hero({ t, scrollToSection }) {
           </div>
 
           <div className="mt-7 flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-3 text-sm text-white/50">
-            <a href={CV_URL} download={CV_FILENAME} className="inline-flex items-center gap-2 font-medium text-white/70 hover:text-cyan transition">
+            <a href={CV_URL} download={CV_FILENAME} onClick={trackCV('inicio')} className="inline-flex items-center gap-2 font-medium text-white/70 hover:text-cyan transition">
               <DownloadIcon className="w-4 h-4" />
               {t.hero.cv}
             </a>

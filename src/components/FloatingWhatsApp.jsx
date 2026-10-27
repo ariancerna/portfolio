@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { whatsappLink } from '../lib/contact'
+import { trackWhatsApp, whatsappLink } from '../lib/contact'
 import { WhatsAppIcon } from './Icons'
 
 // Appears once the visitor scrolls past the hero.
@@ -16,6 +16,7 @@ export default function FloatingWhatsApp({ t }) {
   return (
     <a
       href={whatsappLink(t.hero.waMessage)}
+      onClick={trackWhatsApp('boton-flotante')}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t.floating}
