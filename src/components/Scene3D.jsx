@@ -1,16 +1,27 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Billboard, Sparkles } from '@react-three/drei'
+import { Billboard, Html, Sparkles } from '@react-three/drei'
 import * as THREE from 'three'
 import {
   siDocker, siFastapi, siGit, siNextdotjs, siNodedotjs, siOpenjdk, siPostgresql, siPrisma,
   siPython, siReact, siSpringboot, siSupabase, siTailwindcss, siTypescript, siVercel,
 } from 'simple-icons'
 
+const tech = (icon, name) => ({ icon, name })
+
 const orbits = [
-  { radius: 1.85, tilt: [1.0, 0, 0.28], speed: 0.3, color: '#22d3ee', icons: [siReact, siNextdotjs, siTypescript, siTailwindcss] },
-  { radius: 2.65, tilt: [1.0, 0, -0.2], speed: -0.19, color: '#8b5cf6', icons: [siOpenjdk, siSpringboot, siPython, siFastapi, siNodedotjs] },
-  { radius: 3.4, tilt: [1.0, 0, 0.12], speed: 0.12, color: '#e879f9', icons: [siPostgresql, siSupabase, siDocker, siGit, siVercel, siPrisma] },
+  {
+    radius: 1.85, tilt: [1.0, 0, 0.28], speed: 0.3, color: '#22d3ee',
+    items: [tech(siReact, 'React'), tech(siNextdotjs, 'Next.js'), tech(siTypescript, 'TypeScript'), tech(siTailwindcss, 'Tailwind CSS')],
+  },
+  {
+    radius: 2.65, tilt: [1.0, 0, -0.2], speed: -0.19, color: '#8b5cf6',
+    items: [tech(siOpenjdk, 'Java'), tech(siSpringboot, 'Spring Boot'), tech(siPython, 'Python'), tech(siFastapi, 'FastAPI'), tech(siNodedotjs, 'Node.js')],
+  },
+  {
+    radius: 3.4, tilt: [1.0, 0, 0.12], speed: 0.12, color: '#e879f9',
+    items: [tech(siPostgresql, 'PostgreSQL'), tech(siSupabase, 'Supabase'), tech(siDocker, 'Docker'), tech(siGit, 'Git'), tech(siVercel, 'Vercel'), tech(siPrisma, 'Prisma')],
+  },
 ]
 
 function roundRect(ctx, x, y, w, h, r) {
@@ -28,7 +39,7 @@ function isDark(hex) {
   return 0.2126 * ((n >> 16) & 255) + 0.7152 * ((n >> 8) & 255) + 0.0722 * (n & 255) < 70
 }
 
-// Draws a glassy tile with the brand logo on it.
+// Glassy tile with the brand logo on it.
 function makeLogoTexture(icon) {
   const size = 256
   const c = document.createElement('canvas')
@@ -53,8 +64,8 @@ function makeLogoTexture(icon) {
   return tex
 }
 
-// The "</>" tile. Redrawn once the mono font has loaded.
-function makeCodeTexture() {
+// The "ac." brand tile in the middle. Redrawn once the Sora font has loaded.
+function makeBrandTexture() {
   const size = 512
   const c = document.createElement('canvas')
   c.width = c.height = size
@@ -71,13 +82,26 @@ function makeCodeTexture() {
     ctx.fillStyle = g
     ctx.fill()
     roundRect(ctx, 26, 26, size - 52, size - 52, 110)
-    ctx.fillStyle = 'rgba(10, 8, 20, 0.9)'
+    ctx.fillStyle = 'rgba(10, 8, 20, 0.92)'
     ctx.fill()
-    ctx.fillStyle = g
-    ctx.font = '600 170px "IBM Plex Mono", ui-monospace, monospace'
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    ctx.fillText('</>', size / 2, size / 2 + 6)
+
+    ctx.font = '800 200px Sora, "Segoe UI", sans-serif'
+    ctx.textBaseline = 'alphabetic'
+    const text = 'ac'
+    const textW = ctx.measureText(text).width
+    const dot = 34
+    const total = textW + dot * 1.6
+    const x = (size - total) / 2
+    const baseline = size / 2 + 62
+    ctx.fillStyle = '#ffffff'
+    ctx.fillText(text, x, baseline)
+    const dg = ctx.createLinearGradient(x + textW, baseline - dot * 2, x + textW + dot * 2, baseline)
+    dg.addColorStop(0, '#8b5cf6')
+    dg.addColorStop(1, '#22d3ee')
+    ctx.fillStyle = dg
+    ctx.beginPath()
+    ctx.arc(x + textW + dot * 0.85, baseline - dot * 0.75, dot * 0.75, 0, Math.PI * 2)
+    ctx.fill()
     tex.needsUpdate = true
   }
   draw()
@@ -109,32 +133,94 @@ function CameraFit() {
   return null
 }
 
-// Follows the pointer with a soft delay.
-function Rig({ children }) {
+// Drag to spin (with inertia), plus a soft tilt toward the pointer.
+// Touch only spins on horizontal swipes, so vertical scrolling still works.
+function DragRig({ children, reduced, onInteract }) {
   const group = useRef()
-  useFrame((state, delta) => {
-    if (!group.current) return
-    const { x, y } = state.pointer
-    const k = Math.min(1, delta * 2.5)
-    group.current.rotation.y += (x * 0.35 - group.current.rotation.y) * k
-    group.current.rotation.x += (-y * 0.25 - group.current.rotation.x) * k
+  const { gl } = useThree()
+  const state = useRef({ yaw: 0, pitch: 0, vel: 0, dragging: false, lastX: 0, lastY: 0, moved: false })
+
+  useEffect(() => {
+    const el = gl.domElement
+    el.style.touchAction = 'pan-y'
+    el.style.cursor = 'grab'
+    const s = state.current
+
+    const down = (e) => {
+      s.dragging = true
+      s.moved = false
+      s.lastX = e.clientX
+      s.lastY = e.clientY
+      s.vel = 0
+      el.style.cursor = 'grabbing'
+    }
+    const move = (e) => {
+      if (!s.dragging) return
+      const dx = e.clientX - s.lastX
+      const dy = e.clientY - s.lastY
+      s.lastX = e.clientX
+      s.lastY = e.clientY
+      if (Math.abs(dx) + Math.abs(dy) > 2 && !s.moved) {
+        s.moved = true
+        onInteract?.()
+      }
+      s.yaw += dx * 0.009
+      s.vel = dx * 0.009
+      if (e.pointerType === 'mouse') {
+        s.pitch = THREE.MathUtils.clamp(s.pitch + dy * 0.006, -0.55, 0.55)
+      }
+    }
+    const up = () => {
+      s.dragging = false
+      el.style.cursor = 'grab'
+    }
+
+    el.addEventListener('pointerdown', down)
+    window.addEventListener('pointermove', move)
+    window.addEventListener('pointerup', up)
+    window.addEventListener('pointercancel', up)
+    return () => {
+      el.removeEventListener('pointerdown', down)
+      window.removeEventListener('pointermove', move)
+      window.removeEventListener('pointerup', up)
+      window.removeEventListener('pointercancel', up)
+    }
+  }, [gl, onInteract])
+
+  useFrame((three, delta) => {
+    const g = group.current
+    if (!g) return
+    const s = state.current
+    if (!s.dragging) {
+      s.yaw += s.vel
+      s.vel *= Math.pow(0.04, delta) // inertia fades out in about a second
+      if (!reduced) s.yaw += delta * 0.06 // slow idle spin
+      s.pitch *= Math.pow(0.35, delta) // tilt eases back to level
+    }
+    const hoverX = s.dragging ? 0 : three.pointer.x * 0.25
+    const hoverY = s.dragging ? 0 : -three.pointer.y * 0.18
+    const k = Math.min(1, delta * 6)
+    g.rotation.y += (s.yaw + hoverX - g.rotation.y) * k
+    g.rotation.x += (s.pitch + hoverY - g.rotation.x) * k
   })
+
   return <group ref={group}>{children}</group>
 }
 
 function Center({ reduced }) {
   const ref = useRef()
-  const code = useMemo(makeCodeTexture, [])
+  const brand = useMemo(makeBrandTexture, [])
   const glowTex = useMemo(makeGlowTexture, [])
 
   useEffect(() => {
-    document.fonts?.load('600 170px "IBM Plex Mono"').then(code.draw).catch(() => {})
-  }, [code])
-  useFrame((state) => {
+    document.fonts?.load('800 200px Sora').then(brand.draw).catch(() => {})
+  }, [brand])
+
+  useFrame((three) => {
     if (!ref.current || reduced) return
-    const s = 1 + Math.sin(state.clock.elapsedTime * 1.6) * 0.035
-    ref.current.scale.setScalar(s)
+    ref.current.scale.setScalar(1 + Math.sin(three.clock.elapsedTime * 1.6) * 0.035)
   })
+
   return (
     <Billboard>
       <mesh position={[0, 0, -0.05]}>
@@ -143,15 +229,55 @@ function Center({ reduced }) {
       </mesh>
       <mesh ref={ref}>
         <planeGeometry args={[1.6, 1.6]} />
-        <meshBasicMaterial map={code.tex} transparent toneMapped={false} />
+        <meshBasicMaterial map={brand.tex} transparent toneMapped={false} />
       </mesh>
     </Billboard>
   )
 }
 
-function Orbit({ radius, tilt, speed, color, icons, reduced }) {
+// One logo on an orbit. Grows and shows its name on hover or tap.
+function LogoTile({ texture, name, position }) {
+  const ref = useRef()
+  const [active, setActive] = useState(false)
+
+  useFrame((_, delta) => {
+    if (!ref.current) return
+    const target = active ? 1.35 : 1
+    const s = ref.current.scale.x + (target - ref.current.scale.x) * Math.min(1, delta * 10)
+    ref.current.scale.setScalar(s)
+  })
+
+  return (
+    <Billboard position={position}>
+      <mesh
+        ref={ref}
+        onPointerOver={(e) => {
+          e.stopPropagation()
+          setActive(true)
+        }}
+        onPointerOut={() => setActive(false)}
+        onClick={(e) => {
+          e.stopPropagation()
+          setActive((v) => !v)
+        }}
+      >
+        <planeGeometry args={[0.74, 0.74]} />
+        <meshBasicMaterial map={texture} transparent toneMapped={false} />
+      </mesh>
+      {active && (
+        <Html position={[0, -0.62, 0]} center zIndexRange={[20, 0]} style={{ pointerEvents: 'none' }}>
+          <span className="whitespace-nowrap rounded-full border border-white/15 bg-dark-bg/90 px-2.5 py-1 text-[11px] font-semibold text-white shadow-lg">
+            {name}
+          </span>
+        </Html>
+      )}
+    </Billboard>
+  )
+}
+
+function Orbit({ radius, tilt, speed, color, items, reduced }) {
   const spin = useRef()
-  const textures = useMemo(() => icons.map(makeLogoTexture), [icons])
+  const textures = useMemo(() => items.map((item) => makeLogoTexture(item.icon)), [items])
 
   useFrame((_, delta) => {
     if (spin.current && !reduced) spin.current.rotation.z += delta * speed
@@ -164,15 +290,15 @@ function Orbit({ radius, tilt, speed, color, icons, reduced }) {
         <meshBasicMaterial color={color} transparent opacity={0.55} />
       </mesh>
       <group ref={spin}>
-        {textures.map((tex, i) => {
-          const a = (i / textures.length) * Math.PI * 2
+        {items.map((item, i) => {
+          const a = (i / items.length) * Math.PI * 2
           return (
-            <Billboard key={i} position={[Math.cos(a) * radius, Math.sin(a) * radius, 0]}>
-              <mesh>
-                <planeGeometry args={[0.74, 0.74]} />
-                <meshBasicMaterial map={tex} transparent toneMapped={false} />
-              </mesh>
-            </Billboard>
+            <LogoTile
+              key={item.name}
+              texture={textures[i]}
+              name={item.name}
+              position={[Math.cos(a) * radius, Math.sin(a) * radius, 0]}
+            />
           )
         })}
       </group>
@@ -180,7 +306,7 @@ function Orbit({ radius, tilt, speed, color, icons, reduced }) {
   )
 }
 
-export default function Scene3D({ active = true, reduced = false }) {
+export default function Scene3D({ active = true, reduced = false, onInteract }) {
   return (
     <Canvas
       dpr={[1, 1.75]}
@@ -191,13 +317,13 @@ export default function Scene3D({ active = true, reduced = false }) {
     >
       <CameraFit />
       <fog attach="fog" args={['#08070f', 9.5, 18]} />
-      <Rig>
+      <DragRig reduced={reduced} onInteract={onInteract}>
         <Center reduced={reduced} />
         {orbits.map((orbit) => (
           <Orbit key={orbit.radius} {...orbit} reduced={reduced} />
         ))}
         <Sparkles count={60} scale={[9, 7, 5]} size={2} speed={reduced ? 0 : 0.3} color="#c4b5fd" opacity={0.6} />
-      </Rig>
+      </DragRig>
     </Canvas>
   )
 }
