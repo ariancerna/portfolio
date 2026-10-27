@@ -29,20 +29,20 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 md:px-10 py-3.5 transition-colors duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:px-10 py-3.5 transition-colors duration-300 ${
         scrolled || menuOpen ? 'bg-dark-bg/80 backdrop-blur-xl border-b border-white/[0.06]' : 'bg-transparent border-b border-transparent'
       }`}
     >
       <button
         type="button"
-        className="font-black text-lg text-white"
+        className="justify-self-start font-black text-lg text-white"
         onClick={() => handleNav('inicio')}
         aria-label="Inicio"
       >
         ac<span className="bg-gradient-to-r from-purple to-cyan bg-clip-text text-transparent">.</span>
       </button>
 
-      <div className="hidden lg:flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-1 py-1 font-semibold text-xs">
+      <div className="hidden xl:flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-1 py-1 font-semibold text-xs">
         {navItems.map((item) => (
           <button
             key={item.id}
@@ -55,7 +55,7 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
         ))}
       </div>
 
-      <div className="flex items-center gap-2.5">
+      <div className="col-start-3 justify-self-end flex items-center gap-2.5">
         <div className="flex items-center font-semibold text-xs border border-white/15 rounded-full p-1 select-none" role="group" aria-label="Idioma / Language">
           {['es', 'en'].map((code) => (
             <button
@@ -84,7 +84,7 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
         <button
           type="button"
           onClick={() => setMenuOpen(!menuOpen)}
-          className="lg:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 border border-white/15 rounded-full"
+          className="xl:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 border border-white/15 rounded-full"
           aria-label="Menu"
           aria-expanded={menuOpen}
         >
@@ -95,7 +95,7 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
       </div>
 
       {menuOpen && (
-        <div className="lg:hidden absolute top-full left-0 right-0 bg-dark-bg/95 backdrop-blur-xl border-b border-white/10 flex flex-col py-2">
+        <div className="xl:hidden absolute top-full left-0 right-0 bg-dark-bg/95 backdrop-blur-xl border-b border-white/10 flex flex-col py-2">
           {navItems.map((item) => (
             <button
               key={item.id}
