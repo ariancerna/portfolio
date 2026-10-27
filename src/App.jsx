@@ -1,26 +1,43 @@
-import { useState, useEffect, useRef } from 'react'
-import './App.css'
+import { useEffect, useState } from 'react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
-import About from './components/About'
+import Stats from './components/Stats'
+import Services from './components/Services'
 import Projects from './components/Projects'
+import Process from './components/Process'
+import About from './components/About'
 import Skills from './components/Skills'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import FloatingWhatsApp from './components/FloatingWhatsApp'
 import { translations } from './i18n/translations'
 
+const LANG_KEY = 'ac-portfolio-lang'
+
+function readSavedLang() {
+  try {
+    const saved = localStorage.getItem(LANG_KEY)
+    if (saved === 'es' || saved === 'en') return saved
+  } catch {
+    // storage can be blocked; fall back to Spanish
+  }
+  return 'es'
+}
+
 function App() {
-  const [lang, setLang] = useState('es')
+  const [lang, setLangState] = useState(readSavedLang)
 
   useEffect(() => {
-    const saved = localStorage.getItem('ac-portfolio-lang')
-    if (saved) setLang(saved)
-  }, [])
+    document.documentElement.lang = lang
+  }, [lang])
 
-  const toggleLang = () => {
-    const newLang = lang === 'es' ? 'en' : 'es'
-    setLang(newLang)
-    localStorage.setItem('ac-portfolio-lang', newLang)
+  const setLang = (next) => {
+    setLangState(next)
+    try {
+      localStorage.setItem(LANG_KEY, next)
+    } catch {
+      // ignore
+    }
   }
 
   const t = translations[lang]
@@ -28,25 +45,26 @@ function App() {
   const scrollToSection = (id) => {
     const el = document.getElementById(id)
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 64
+      const y = el.getBoundingClientRect().top + window.scrollY - 72
       window.scrollTo({ top: y, behavior: 'smooth' })
     }
   }
 
   return (
     <div className="min-h-screen bg-dark-bg text-white font-sora overflow-x-clip">
-      <Navigation
-        t={t}
-        lang={lang}
-        toggleLang={toggleLang}
-        scrollToSection={scrollToSection}
-      />
-      <Hero t={t} scrollToSection={scrollToSection} />
-      <About t={t} />
-      <Projects t={t} />
-      <Skills t={t} />
-      <Contact t={t} />
+      <Navigation t={t} lang={lang} setLang={setLang} scrollToSection={scrollToSection} />
+      <main>
+        <Hero t={t} scrollToSection={scrollToSection} />
+        <Stats t={t} />
+        <Services t={t} scrollToSection={scrollToSection} />
+        <Projects t={t} />
+        <Process t={t} />
+        <About t={t} />
+        <Skills t={t} />
+        <Contact t={t} />
+      </main>
       <Footer t={t} />
+      <FloatingWhatsApp t={t} />
     </div>
   )
 }

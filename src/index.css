@@ -82,3 +82,98 @@ textarea:focus {
   border-color: rgba(139, 92, 246, 0.7);
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
 }
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* 3D tilt cards */
+.tilt-wrap {
+  perspective: 1100px;
+  height: 100%;
+}
+.tilt {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transform-style: preserve-3d;
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), border-color .3s;
+  will-change: transform;
+}
+.tilt:hover {
+  transition: transform .08s linear, border-color .3s;
+}
+.tilt-pop {
+  transform: translateZ(28px);
+}
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s;
+  background: radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, .09), transparent 45%);
+}
+.tilt:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* Hero background grid */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at 60% 40%, black 20%, transparent 70%);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.fade-in {
+  animation: fadeIn 1.2s ease both;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-marquee,
+  .animate-orb-a,
+  .animate-orb-b,
+  .animate-orb-c {
+    animation: none;
+  }
+}

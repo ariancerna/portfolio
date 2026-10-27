@@ -25,11 +25,14 @@ The files will be in the dist folder.
 
 ## How it's structured
 
-- src/components — each section is its own component (Hero, About, Projects, Skills, Contact...).
+- src/components — each section is its own component (Hero, Services, Projects, Process, About, Skills, Contact...).
+- src/components/Scene3D.jsx — the interactive 3D scene in the hero (Three.js + React Three Fiber). It loads after the page, pauses when off screen and falls back to a CSS glow without WebGL.
 - src/i18n/translations.js — all the text in Spanish and English. The language is saved in localStorage.
-- public — favicon and image for social sharing (og-image).
-- Colors and other settings are in tailwind.config.js.
+- src/lib/contact.js — WhatsApp number, email and CV path in one place.
+- public/projects — project screenshots (WebP).
+- public — favicon, CV and image for social sharing (og-image).
+- Colors and animations are in src/index.css.
 
 ## Stack
 
-React 19, Vite, Tailwind CSS. No UI libraries, everything is designed by hand.
+React 19, Vite, Tailwind CSS 4, Three.js with React Three Fiber. No UI libraries, everything is designed by hand.
