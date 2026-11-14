@@ -48,3 +48,11 @@ export const PinIcon = ({ className = 'w-4 h-4' }) => (
     <circle cx="12" cy="9.5" r="2.5" />
   </svg>
 )
+
+// The site mark: an "A" with the accent square. Same drawing as public/favicon.svg.
+export const Logo = ({ className = 'w-5 h-5' }) => (
+  <svg viewBox="8 9 48 46" className={className} aria-hidden="true">
+    <path d="M32 11 54 53H42.2L32 32.6 21.8 53H10z" fill="currentColor" />
+    <rect x="27.5" y="44" width="9" height="9" fill="var(--color-accent)" />
+  </svg>
+)
