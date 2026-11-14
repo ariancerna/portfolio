@@ -48,34 +48,3 @@ export const PinIcon = ({ className = 'w-4 h-4' }) => (
     <circle cx="12" cy="9.5" r="2.5" />
   </svg>
 )
-
-// Service icons
-export const GlobeIcon = ({ className = 'w-6 h-6' }) => (
-  <svg {...base} className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="9" />
-    <path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" />
-  </svg>
-)
-
-export const BagIcon = ({ className = 'w-6 h-6' }) => (
-  <svg {...base} className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 8h14l-1 12H6L5 8z" />
-    <path d="M9 8V6a3 3 0 0 1 6 0v2" />
-  </svg>
-)
-
-export const CalendarIcon = ({ className = 'w-6 h-6' }) => (
-  <svg {...base} className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3.5" y="5" width="17" height="15" rx="2.5" />
-    <path d="M3.5 10h17M8 3v4M16 3v4M9 14.5l2 2 4-4" />
-  </svg>
-)
-
-export const DashboardIcon = ({ className = 'w-6 h-6' }) => (
-  <svg {...base} className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3.5" y="3.5" width="7" height="9" rx="1.5" />
-    <rect x="13.5" y="3.5" width="7" height="5" rx="1.5" />
-    <rect x="13.5" y="11.5" width="7" height="9" rx="1.5" />
-    <rect x="3.5" y="15.5" width="7" height="5" rx="1.5" />
-  </svg>
-)

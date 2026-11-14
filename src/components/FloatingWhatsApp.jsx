@@ -21,11 +21,11 @@ export default function FloatingWhatsApp({ t }) {
       rel="noopener noreferrer"
       aria-label={t.floating}
       tabIndex={visible ? 0 : -1}
-      className={`fixed z-40 bottom-5 right-5 inline-flex items-center gap-2 font-semibold text-sm text-white bg-[#25d366] rounded-full p-3.5 sm:pl-4 sm:pr-5 shadow-[0_10px_30px_rgba(37,211,102,0.4)] hover:-translate-y-0.5 transition duration-300 ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
+      className={`fixed z-40 bottom-5 right-5 inline-flex items-center gap-2 h-12 px-3.5 sm:pr-4 rounded-full bg-[#25d366] text-[#06200f] text-sm font-medium border border-black/20 shadow-[0_12px_30px_-10px_rgba(0,0,0,0.8)] transition duration-300 hover:bg-[#3be07a] ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3 pointer-events-none'
       }`}
     >
-      <WhatsAppIcon className="w-6 h-6" />
+      <WhatsAppIcon className="w-5 h-5" />
       <span className="hidden sm:inline">{t.floating}</span>
     </a>
   )

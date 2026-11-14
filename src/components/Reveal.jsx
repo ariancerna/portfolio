@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 // Fades its children in the first time they scroll into view.
-export default function Reveal({ children, delay = 0, className = '', as: Tag = 'div' }) {
+// `tilt` makes them tip up into place, used for screenshots.
+export default function Reveal({ children, delay = 0, tilt = false, className = '', as: Tag = 'div' }) {
   const ref = useRef(null)
   const [shown, setShown] = useState(false)
 
@@ -19,7 +20,7 @@ export default function Reveal({ children, delay = 0, className = '', as: Tag = 
           io.disconnect()
         }
       },
-      { rootMargin: '0px 0px -10% 0px', threshold: 0.1 }
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
     )
     io.observe(el)
     return () => io.disconnect()
@@ -29,7 +30,7 @@ export default function Reveal({ children, delay = 0, className = '', as: Tag = 
     <Tag
       ref={ref}
       style={{ transitionDelay: `${delay}ms` }}
-      className={`reveal ${shown ? 'reveal-in' : ''} ${className}`}
+      className={`reveal ${tilt ? 'reveal-tilt' : ''} ${shown ? 'reveal-in' : ''} ${className}`}
     >
       {children}
     </Tag>

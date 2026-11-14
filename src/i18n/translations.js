@@ -19,10 +19,9 @@ export const translations = {
       ctaWhatsapp: 'Cuéntame tu idea',
       ctaProjects: 'Ver lo que he hecho',
       cv: 'Descargar CV',
-      location: 'Lima, Perú. También trabajo remoto.',
+      location: 'Lima, Perú · Trabajo remoto',
       waMessage: 'Hola Arian, vi tu portafolio y quisiera consultarte por un proyecto.',
-      drag: 'Arrastra para girar · pasa sobre un logo',
-      dragTouch: 'Desliza para girar · toca un logo',
+      drag: 'Arrastra para girar',
     },
 
 
@@ -30,7 +29,7 @@ export const translations = {
       kicker: 'SERVICIOS',
       title: 'Lo que puedo hacer por tu negocio',
       desc: 'Si hoy atiendes todo por mensajes, llevas el stock en una libreta o tus clientes no te encuentran en Google, aquí hay algo para ti.',
-      example: 'Mira un ejemplo',
+      example: 'Ejemplo',
       items: [
         {
           title: 'Tu propia página web',
@@ -235,10 +234,9 @@ export const translations = {
       ctaWhatsapp: 'Tell me your idea',
       ctaProjects: 'See my work',
       cv: 'Download CV',
-      location: 'Lima, Peru. Remote work too.',
+      location: 'Lima, Peru · Remote',
       waMessage: 'Hi Arian, I saw your portfolio and I\'d like to ask you about a project.',
-      drag: 'Drag to spin · hover a logo',
-      dragTouch: 'Swipe to spin · tap a logo',
+      drag: 'Drag to rotate',
     },
 
 
@@ -246,7 +244,7 @@ export const translations = {
       kicker: 'SERVICES',
       title: 'What I can do for your business',
       desc: 'If you handle everything through messages, track stock in a notebook, or customers can\'t find you on Google, there\'s something here for you.',
-      example: 'See an example',
+      example: 'Example',
       items: [
         {
           title: 'Your own website',

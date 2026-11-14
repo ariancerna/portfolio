@@ -45,13 +45,13 @@ function App() {
   const scrollToSection = (id) => {
     const el = document.getElementById(id)
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 72
+      const y = el.getBoundingClientRect().top + window.scrollY - 56
       window.scrollTo({ top: y, behavior: 'smooth' })
     }
   }
 
   return (
-    <div className="min-h-screen bg-dark-bg text-white font-sora overflow-x-clip">
+    <div className="min-h-screen overflow-x-clip">
       <Navigation t={t} lang={lang} setLang={setLang} scrollToSection={scrollToSection} />
       <main>
         <Hero t={t} scrollToSection={scrollToSection} />
