@@ -118,7 +118,7 @@ function CaseStudy({ project, index, t }) {
 
           <dl className="mt-8 border-t border-line">
             {rows.map(([label, text, tone]) => (
-              <div key={label} className="grid grid-cols-[5.25rem_1fr] gap-4 py-4 border-b border-line">
+              <div key={label} className="grid grid-cols-[6rem_1fr] gap-4 py-4 border-b border-line">
                 <dt className="label pt-1">{label}</dt>
                 <dd className={`m-0 text-[0.95rem] leading-relaxed ${tone}`}>{text}</dd>
               </div>
