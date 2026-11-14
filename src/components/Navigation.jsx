@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { trackWhatsApp, whatsappLink } from '../lib/contact'
+import { Logo } from './Icons'
 
 export default function Navigation({ t, lang, setLang, scrollToSection }) {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -33,7 +34,8 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
       }`}
     >
       <div className="wrap h-14 flex items-center justify-between gap-6">
-        <button type="button" onClick={() => go('inicio')} className="font-medium tracking-tight text-[0.95rem]">
+        <button type="button" onClick={() => go('inicio')} className="flex items-center gap-2.5 font-medium tracking-tight text-[0.95rem]">
+          <Logo className="w-[18px] h-[18px]" />
           Arian Cerna
         </button>
 

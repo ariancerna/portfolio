@@ -34,7 +34,7 @@ The files will be in the dist folder.
 - src/i18n/translations.js — all the text in Spanish and English. The language is saved in localStorage.
 - src/lib/contact.js — WhatsApp number, email and CV path in one place.
 - public/projects — project screenshots (WebP), desktop and mobile.
-- public — favicon, CV and image for social sharing (og-image).
+- public — logo (favicon.svg plus the .ico and app icons made from it), CV and image for social sharing (og-image).
 - Colors, type and the few shared classes (buttons, labels, fields) are in src/index.css.
 
 ## Design
