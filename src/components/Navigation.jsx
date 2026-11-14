@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { trackWhatsApp, whatsappLink } from '../lib/contact'
-import { WhatsAppIcon } from './Icons'
 
 export default function Navigation({ t, lang, setLang, scrollToSection }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 8)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -22,100 +21,95 @@ export default function Navigation({ t, lang, setLang, scrollToSection }) {
     { id: 'contacto', label: t.nav.contacto },
   ]
 
-  const handleNav = (id) => {
+  const go = (id) => {
     scrollToSection(id)
     setMenuOpen(false)
   }
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 grid grid-cols-[1fr_auto_1fr] items-center gap-3 px-4 md:px-10 py-3.5 transition-colors duration-300 ${
-        scrolled || menuOpen ? 'bg-dark-bg/80 backdrop-blur-xl border-b border-white/[0.06]' : 'bg-transparent border-b border-transparent'
+      className={`fixed top-0 inset-x-0 z-50 border-b transition-colors duration-300 ${
+        scrolled || menuOpen ? 'bg-bg border-line' : 'bg-transparent border-transparent'
       }`}
     >
-      <button
-        type="button"
-        className="justify-self-start font-black text-lg text-white"
-        onClick={() => handleNav('inicio')}
-        aria-label="Inicio"
-      >
-        ac<span className="bg-gradient-to-r from-purple to-cyan bg-clip-text text-transparent">.</span>
-      </button>
-
-      <div className="hidden xl:flex items-center gap-1 bg-white/5 border border-white/10 rounded-full px-1 py-1 font-semibold text-xs">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => handleNav(item.id)}
-            className="text-white/70 px-4 py-2 rounded-full hover:text-white hover:bg-white/[0.08] transition"
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-
-      <div className="col-start-3 justify-self-end flex items-center gap-2.5">
-        <div className="flex items-center font-semibold text-xs border border-white/15 rounded-full p-1 select-none" role="group" aria-label="Idioma / Language">
-          {['es', 'en'].map((code) => (
-            <button
-              key={code}
-              type="button"
-              onClick={() => setLang(code)}
-              aria-pressed={lang === code}
-              className={`px-2.5 py-1 rounded-full transition uppercase ${lang === code ? 'text-dark-bg bg-gradient-to-r from-purple to-cyan' : 'text-white/55'}`}
-            >
-              {code}
-            </button>
-          ))}
-        </div>
-
-        <a
-          href={whatsappLink(t.hero.waMessage)}
-          onClick={trackWhatsApp('nav')}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden sm:inline-flex items-center gap-2 font-semibold text-xs text-dark-bg bg-gradient-to-r from-purple to-cyan px-4 py-2.5 rounded-full hover:shadow-[0_8px_30px_rgba(139,92,246,0.45)] transition"
-        >
-          <WhatsAppIcon className="w-4 h-4" />
-          {t.nav.cta}
-        </a>
-
-        <button
-          type="button"
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="xl:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5 border border-white/15 rounded-full"
-          aria-label="Menu"
-          aria-expanded={menuOpen}
-        >
-          <span className={`block w-4 h-0.5 bg-white transition-transform ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-          <span className={`block w-4 h-0.5 bg-white transition-opacity ${menuOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block w-4 h-0.5 bg-white transition-transform ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+      <div className="wrap h-14 flex items-center justify-between gap-6">
+        <button type="button" onClick={() => go('inicio')} className="font-medium tracking-tight text-[0.95rem]">
+          Arian Cerna
         </button>
+
+        <div className="flex items-center gap-6">
+          <ul className="hidden lg:flex items-center gap-6 list-none m-0 p-0 text-sm text-muted">
+            {navItems.map((item) => (
+              <li key={item.id}>
+                <button type="button" onClick={() => go(item.id)} className="hover:text-ink transition-colors">
+                  {item.label}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center gap-1 font-mono text-xs" role="group" aria-label="Idioma / Language">
+            {['es', 'en'].map((code, i) => (
+              <span key={code} className="flex items-center gap-1">
+                {i > 0 && <span className="text-line-strong" aria-hidden="true">/</span>}
+                <button
+                  type="button"
+                  onClick={() => setLang(code)}
+                  aria-pressed={lang === code}
+                  className={`uppercase px-1 py-1 transition-colors ${lang === code ? 'text-ink' : 'text-faint hover:text-muted'}`}
+                >
+                  {code}
+                </button>
+              </span>
+            ))}
+          </div>
+
+          <a
+            href={whatsappLink(t.hero.waMessage)}
+            onClick={trackWhatsApp('nav')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-sm btn-secondary hidden sm:inline-flex"
+          >
+            {t.nav.cta}
+          </a>
+
+          <button
+            type="button"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden relative w-9 h-9 -mr-2 grid place-items-center"
+            aria-label="Menu"
+            aria-expanded={menuOpen}
+          >
+            <span className={`absolute w-5 h-px bg-ink transition-transform ${menuOpen ? 'rotate-45' : '-translate-y-[4px]'}`}></span>
+            <span className={`absolute w-5 h-px bg-ink transition-transform ${menuOpen ? '-rotate-45' : 'translate-y-[4px]'}`}></span>
+          </button>
+        </div>
       </div>
 
       {menuOpen && (
-        <div className="xl:hidden absolute top-full left-0 right-0 bg-dark-bg/95 backdrop-blur-xl border-b border-white/10 flex flex-col py-2">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => handleNav(item.id)}
-              className="text-white/80 px-6 py-3 text-left font-semibold text-sm hover:bg-white/[0.06] transition"
+        <div className="lg:hidden border-t border-line bg-bg">
+          <ul className="wrap list-none py-3">
+            {navItems.map((item, i) => (
+              <li key={item.id} className={i > 0 ? 'border-t border-line' : ''}>
+                <button type="button" onClick={() => go(item.id)} className="w-full flex items-center justify-between py-3.5 text-left text-lg tracking-tight">
+                  {item.label}
+                  <span className="font-mono text-xs text-faint">0{i + 1}</span>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="wrap pb-5">
+            <a
+              href={whatsappLink(t.hero.waMessage)}
+              onClick={trackWhatsApp('menu-movil')}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary w-full"
             >
-              {item.label}
-            </button>
-          ))}
-          <a
-            href={whatsappLink(t.hero.waMessage)}
-            onClick={trackWhatsApp('menu-movil')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-5 mt-2 mb-2 inline-flex items-center justify-center gap-2 font-semibold text-sm text-dark-bg bg-gradient-to-r from-purple to-cyan px-4 py-3 rounded-full"
-          >
-            <WhatsAppIcon className="w-4 h-4" />
-            {t.nav.cta}
-          </a>
+              {t.nav.cta}
+            </a>
+          </div>
         </div>
       )}
     </nav>

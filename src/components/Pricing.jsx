@@ -1,46 +1,40 @@
 import { trackWhatsApp, whatsappLink } from '../lib/contact'
-import { CheckIcon, WhatsAppIcon } from './Icons'
+import { CheckIcon } from './Icons'
 import Reveal from './Reveal'
-import SectionHeading from './SectionHeading'
+import Section from './Section'
 
 export default function Pricing({ t }) {
   const p = t.pricing
 
   return (
-    <section id="precios" className="relative max-w-6xl mx-auto px-5 sm:px-8 py-24">
-      <SectionHeading kicker={p.kicker} title={p.title} desc={p.desc} />
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 items-stretch">
-        {p.plans.map((plan, i) => {
-          const featured = Boolean(plan.tag)
-          return (
-            <Reveal key={plan.name} delay={i * 90} className="h-full">
+    <Section id="precios" index="04" label={p.kicker} title={p.title} desc={p.desc}>
+      <Reveal>
+        <div className="grid grid-cols-1 lg:grid-cols-3 border border-line rounded-lg overflow-hidden">
+          {p.plans.map((plan, i) => {
+            const highlighted = Boolean(plan.tag)
+            return (
               <div
-                className={`relative h-full flex flex-col rounded-3xl p-7 sm:p-8 ${
-                  featured
-                    ? 'bg-gradient-to-b from-purple/20 to-cyan/5 border border-purple/50 shadow-[0_20px_60px_-20px_rgba(139,92,246,0.45)]'
-                    : 'bg-white/[0.03] border border-white/10'
+                key={plan.name}
+                className={`relative flex flex-col p-7 lg:p-9 ${i > 0 ? 'border-t lg:border-t-0 lg:border-l border-line' : ''} ${
+                  highlighted ? 'bg-surface' : ''
                 }`}
               >
-                {featured && (
-                  <span className="absolute -top-3 left-7 font-bold text-[11px] tracking-wider uppercase text-dark-bg bg-gradient-to-r from-purple to-cyan rounded-full px-3 py-1">
-                    {plan.tag}
-                  </span>
-                )}
-                <h3 className="text-lg font-bold text-white">{plan.name}</h3>
-                <p className="mt-2 text-sm font-light leading-relaxed text-white/55 min-h-[2.75rem]">{plan.for}</p>
-
-                <div className="mt-5 flex items-baseline gap-2">
-                  <span className="text-sm text-white/45">{p.from}</span>
-                  <span className="text-4xl font-black tracking-tight text-white">S/ {plan.price}</span>
+                {highlighted && <span className="absolute inset-x-0 top-0 h-px bg-accent" aria-hidden="true"></span>}
+                <div className="flex items-center justify-between gap-3 min-h-5">
+                  <h3 className="text-[0.95rem] font-medium">{plan.name}</h3>
+                  {highlighted && <span className="label !text-accent">{plan.tag}</span>}
                 </div>
 
-                <ul className="mt-6 space-y-3 list-none p-0 flex-1">
+                <p className="mt-8 flex items-baseline gap-2">
+                  <span className="label">{p.from}</span>
+                  <span className="text-5xl font-medium tracking-[-0.045em]">S/ {plan.price}</span>
+                </p>
+                <p className="mt-4 text-[0.95rem] leading-relaxed text-muted lg:min-h-[3.2rem]">{plan.for}</p>
+
+                <ul className="mt-7 pt-6 border-t border-line space-y-3 list-none p-0 flex-1">
                   {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-3 text-sm text-white/75">
-                      <span className="mt-0.5 w-5 h-5 shrink-0 rounded-full grid place-items-center bg-cyan/15 text-cyan">
-                        <CheckIcon className="w-3 h-3" />
-                      </span>
+                    <li key={feature} className="flex items-start gap-3 text-sm text-muted">
+                      <CheckIcon className="w-3.5 h-3.5 mt-[3px] shrink-0 text-faint" />
                       {feature}
                     </li>
                   ))}
@@ -51,26 +45,21 @@ export default function Pricing({ t }) {
                   onClick={trackWhatsApp(`precios-${i + 1}`)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`mt-8 inline-flex items-center justify-center gap-2 font-semibold text-sm px-6 py-3.5 rounded-full transition hover:-translate-y-0.5 ${
-                    featured
-                      ? 'text-dark-bg bg-gradient-to-r from-purple to-cyan hover:shadow-[0_10px_30px_rgba(139,92,246,0.45)]'
-                      : 'text-white bg-white/6 border border-white/12 hover:bg-white/10'
-                  }`}
+                  className={`btn mt-9 ${highlighted ? 'btn-primary' : 'btn-secondary'}`}
                 >
-                  <WhatsAppIcon className="w-4 h-4" />
                   {plan.cta}
                 </a>
               </div>
-            </Reveal>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      </Reveal>
 
       <Reveal className="mt-6">
-        <p className="text-sm text-white/50 leading-relaxed max-w-3xl">
+        <p className="max-w-3xl text-sm leading-relaxed text-faint">
           {p.note} {p.currencyNote}
         </p>
       </Reveal>
-    </section>
+    </Section>
   )
 }
